@@ -1,0 +1,151 @@
+<div class="p-4 sm:ml-64 mt-[50px]">
+
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-[10px]">
+        <div class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+            <div>
+                <h1>Liste des annonces</h1>
+            </div>
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                (input)="filterAnnonces()"
+                placeholder="Rechercher des annonces..."
+                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50"
+              />
+            </div>
+        </div>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                   
+                    <th scope="col" class="px-6 py-3">
+                        titre
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        pays
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        ville
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Etat
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let annonce of annonces"
+                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                   
+                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <img class="w-13 h-13"
+                         [src]="annonce.photo" 
+                         alt="Image de l'annonce">
+                    <div class="ps-3">
+                      <div class="text-base font-semibold">{{ annonce.titre }}</div>
+                    </div>  
+                  </th>
+                  
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                             {{annonce.pays}}
+                        </div>
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                             {{annonce.ville}}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div
+                        [ngClass]="{'bg-green-500': annonce.etat=='accepté','bg-yellow-500': annonce.etat=='en attente','bg-red-500': annonce.etat=='refusé'}"
+                        class="h-2.5 w-2.5 rounded-full me-2"></div>  {{annonce.etat}}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                             {{annonce.status}}
+                        </div>
+                    </td>
+
+                  
+
+                      <td class="px-6 py-4">
+                        <div class="flex items-center gap-1">
+                            <button routerLink="/admin/voir-annonce/{{annonce.id}}"
+                               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                                voir
+                              </button>
+                           <button (click)="accepterAnnonce(annonce.id)" title="accepter l'annonce"
+                           *ngIf="annonce.etat=='en attente'"
+                           class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 border border-green-900 rounded">
+                                <fa-icon [icon]="faCheck"></fa-icon>
+                              </button>
+                              <button (click)="refuserAnnonce(annonce.id)" title="refuser l'annonce"
+                               *ngIf="annonce.etat=='en attente'"
+                              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                                <fa-icon [icon]="faTimesCircle"></fa-icon>
+                              </button>
+                     
+
+                            
+                            <button *ngIf="annonce.status=='archivé' && annonce.etat!='en attente'" title="rendre l'annonce visible"
+                              (click)="rendreAnnonceVisible(annonce.id)"
+                            class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 border border-yellow-700 rounded">
+                                <fa-icon [icon]="faEye"></fa-icon>
+                              </button>
+                              <button *ngIf="annonce.status=='visible' && annonce.etat!='en attente'" title="archiver l'annonce"
+                              (click)="archiverAnnonce(annonce.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                                <fa-icon [icon]="faArchive"></fa-icon>
+                              </button>
+                        </div>
+                    </td>
+                </tr>
+              
+            </tbody>
+        </table>
+
+<!-- pagination -->
+<div
+class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+
+<div class="inline-flex mt-2 xs:mt-0">
+    <button (click)="previousPage()"
+        class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l disabled:bg-gray-100"
+        
+          [disabled]="currentPage === 1"
+        >
+        Précedent
+    </button>
+    <button (click)="nextPage()"
+        class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r disabled:bg-gray-100"
+          [disabled]="currentPage === totalPages"
+        >
+        Suivant 
+    </button>
+</div>
+</div>
+    <!-- end pagination -->
+
+
+     
+    </div>
+    
+
+
+
+    </div>

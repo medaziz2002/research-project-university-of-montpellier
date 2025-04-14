@@ -1,0 +1,21 @@
+/* "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+"./node_modules/bootstrap/dist/css/bootstrap.min.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css", */
+/* @import url("../../../node_modules/bootstrap/dist/css/bootstrap.min.css"); */
+ @import url("../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
+
+
+ .red-date {
+    background-color: red !important;
+  }
+
+  .bs-datepicker-body .is-current[data-date='2023-12-13'] {
+    background-color: red !important;
+  }
+
+  body > bs-daterangepicker-container > div > div > div > div > bs-days-calendar-view:nth-child(1) > bs-calendar-layout > div.bs-datepicker-body > table > tbody > tr:nth-child(3) > td:nth-child(4) > span{
+    background-color: red !important;
+    text-decoration: line-through;
+    cursor: default!important;
+  }
+  

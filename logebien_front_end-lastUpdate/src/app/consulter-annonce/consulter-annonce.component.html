@@ -1,0 +1,202 @@
+<section class="relative md:pb-24 pb-16 mt-20 m-auto max-w-[1300px]">
+  <div class="container-fluid">
+      <div class="md:flex mt-4">
+          <div class="lg:w-1/2 md:w-1/2 p-1">
+              <div data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                   (click)="clicked(annonce?.photos[0]?.image)" 
+                   class="group relative overflow-hidden">
+                  <img *ngIf="annonce?.photos?.[0]?.image" 
+                       [src]="annonce?.photos[0]?.image" 
+                       alt="photo principale" class="w-full h-auto">
+                  <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+              </div>
+          </div>
+
+          <div class="lg:w-1/2 md:w-1/2">
+              <div class="flex">
+                  <div *ngIf="annonce?.photos?.[1]?.image" 
+                       data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                       (click)="clicked(annonce.photos[1].image)" class="w-1/2 p-1">
+                      <div class="group relative overflow-hidden">
+                          <img [src]="annonce?.photos[1]?.image" alt="" class="w-full h-auto">
+                          <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                      </div>
+                  </div>
+
+                  <div *ngIf="annonce?.photos?.[2]?.image" 
+                       class="w-1/2 p-1"  
+                       data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                       (click)="clicked(annonce.photos[2].image)">
+                      <div class="group relative overflow-hidden">
+                          <img [src]="annonce?.photos[2]?.image" alt="" class="w-full h-auto">
+                          <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="flex">
+                  <div *ngIf="annonce?.photos?.[3]?.image" 
+                       class="w-1/2 p-1"  
+                       data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                       (click)="clicked(annonce.photos[3].image)">
+                      <div class="group relative overflow-hidden">
+                          <img [src]="annonce?.photos[3]?.image" alt="" class="w-full h-auto">
+                          <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                      </div>
+                  </div>
+
+                  <div *ngIf="annonce?.photos?.[4]?.image" 
+                       class="w-1/2 p-1"  
+                       data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                       (click)="clicked(annonce.photos[4].image)">
+                      <div class="group relative overflow-hidden">
+                          <img [src]="annonce?.photos[4]?.image" alt="" class="w-full h-auto">
+                          <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container mt-10">
+      <div class="md:flex">
+          <div class="lg:w-2/3 md:w-1/2 md:p-4 px-3">
+              <h4 class="text-2xl font-medium">                        
+                  <fa-icon [icon]="faMapMarkerAlt" class="text-green-600 mx-2"></fa-icon>
+                  {{annonce?.pays}}, {{annonce?.ville}}</h4>
+
+              <ul class="py-6 flex items-center list-none p-0">
+                  <li class="flex items-center lg:me-6 me-4">
+                      <fa-icon [icon]="faCompressArrowsAlt" class="text-green-600 mx-2"></fa-icon>
+                      <span class="lg:text-xl">{{annonce?.superficie}} m²</span>
+                  </li>
+
+                  <li class="flex items-center lg:me-6 me-4">
+                      <fa-icon [icon]="faBed" class="text-green-600 mx-2"></fa-icon>
+                      <span class="lg:text-xl">{{annonce?.nblits}} lits</span>
+                  </li>
+
+                  <li class="flex items-center">
+                      <fa-icon [icon]="faCouch" class="text-green-600 mx-2"></fa-icon>
+                      <span class="lg:text-xl">{{annonce?.nbchambre}} chambres</span>
+                  </li>
+              </ul>
+
+              <div class="w-full leading-[0] border-0 mt-6">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin" 
+                          style="border:0" class="w-full h-[500px]" allowfullscreen></iframe>
+              </div>
+
+   
+
+              <!-- Afficher les évaluations existantes -->
+              <div *ngFor="let ev of evaluations"
+                  class="w-full rounded p-4 bg-black-50 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.2)] mt-4">
+                  <div class="flex flex-wrap items-center cursor-pointer w-full bg-green-500 p-2 rounded">
+                      <img src='https://readymadeui.com/team-1.webp' class="w-14 h-14 rounded-full" />
+                      <div class="ml-4 flex-1">
+                          <p class="text-base text-white font-semibold">{{ev.locataire?.prenom}} {{ev.locataire?.nom}}</p>
+                      </div>
+                  </div>
+                  <div class="my-8">
+                      <div class="flex space-x-2">
+                          <svg [ngClass]="{'w-5 fill-[#facc15]':ev.note>=1,'w-5 fill-[#CED5D8]':ev.note<1}"
+                              class="max-w-5" viewBox="0 0 14 13" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                          </svg>
+                          <svg [ngClass]="{'w-5 fill-[#facc15]':ev.note>=2,'w-5 fill-[#CED5D8]':ev.note<2}"
+                              class="max-w-5" viewBox="0 0 14 13" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                          </svg>
+                          <svg [ngClass]="{'w-5 fill-[#facc15]':ev.note>=3,'w-5 fill-[#CED5D8]':ev.note<3}"
+                              class="max-w-5" viewBox="0 0 14 13" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                          </svg>
+                          <svg [ngClass]="{'w-5 fill-[#facc15]':ev.note>=4,'w-5 fill-[#CED5D8]':ev.note<4}"
+                              class="max-w-5" viewBox="0 0 14 13" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                          </svg>
+                          <svg [ngClass]="{'w-5 fill-[#facc15]':ev.note>=5,'w-5 fill-[#CED5D8]':ev.note<5}"
+                              class="max-w-5" viewBox="0 0 14 13" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                          </svg>
+                      </div>
+                      <p class="text-sm text-gray-300 mt-4">{{ev.descreption}} </p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                      <p class="text-sm text-gray-300"> {{ev.date}} </p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="lg:w-1/3 md:w-1/2 md:p-4 px-3 mt-8 md:mt-0">
+              <div class="sticky top-20">
+                  <div class="rounded-md bg-slate-50 dark:bg-slate-800 shadow dark:shadow-gray-700">
+                      <div class="p-6">
+                          <div class="flex justify-between items-center mt-4">
+                              <span class="text-xl font-medium">prix par nuité :</span>
+                              <span class="bg-green-600/10 text-green-600 text-sm px-2.5 py-0.75 rounded h-6">
+                                  {{getPrixSaisonActuelle(annonce)}} dt
+                              </span>
+                          </div>
+
+                          <ul class="list-none mt-4 p-0">
+                              <li class="flex justify-between items-center my-[20px]">
+                                  <div class="row w-[100%]">
+                                      <div class="col-12 w-[100%]">
+                                          <input type="text" 
+                                              placeholder="selectionner une date"
+                                              class="form-control w-[100%]"
+                                              [selectionStart]="selectionStart"
+                                              [datesDisabled]="disabledDates"
+                                              [minDate]="minDate"
+                                              [(ngModel)]="bsRangeValue"
+                                              (ngModelChange)="onDateRangeChange($event)"
+                                              bsDaterangepicker>
+                                      </div>
+                                  </div>
+                              </li>
+
+                              <li class="flex justify-between items-center">
+                                  <button *ngIf="authService.isLocataire()" (click)="Reserver()"
+                                      style="color: white !important;" 
+                                      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-[100%]">
+                                      réserver
+                                  </button>
+                              </li>
+
+                              <hr class="my-[20px]">
+                              <li class="flex justify-between items-center mt-2">
+                                  <span class="text-slate-400 text-sm">prix total</span>
+                                  <span class="font-medium text-sm">{{nbJours}} nuités pour {{totalPrice}} dt</span>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Modal pour afficher l'image en grand -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" 
+   class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div style="background: white; border-radius: 14px;" 
+       class="relative w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="md:p-5 space-y-4">
+              <img [src]="clickedItem" alt="" class="w-full h-auto">
+          </div>
+      </div>
+  </div>
+</div>
+

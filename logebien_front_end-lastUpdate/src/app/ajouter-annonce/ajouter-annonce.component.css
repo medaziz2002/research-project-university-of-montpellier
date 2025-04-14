@@ -1,0 +1,290 @@
+
+
+
+
+p {
+    color: grey
+}
+
+#heading {
+    text-transform: uppercase;
+    color: #057a55;
+    font-weight: normal
+}
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+   
+    padding-bottom: 20px;
+    position: relative
+}
+
+.form-card {
+    text-align: left
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none
+}
+
+#msform input,select,
+#msform textarea {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    background-color: #ECEFF1;
+    font-size: 16px;
+    letter-spacing: 1px
+}
+
+#msform input:focus,
+#msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #057a55;
+    outline-width: 0
+}
+
+#msform .action-button {
+    width: 100px;
+    background: #057a55;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0px 10px 5px;
+    float: right
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    background-color: #91e1c7
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+    float: right
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    background-color: #000000
+}
+
+.card {
+    z-index: 0;
+    border: none;
+    position: relative
+}
+
+.fs-title {
+    font-size: 25px;
+    color: #057a55;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-align: left
+}
+
+.purple-text {
+    color: #057a55;
+    font-weight: normal
+}
+
+.steps {
+    font-size: 25px;
+    color: gray;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right
+}
+
+.fieldlabels {
+    color: gray;
+    text-align: left
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #057a55
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400
+}
+
+#progressbar #account:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/types.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    
+}
+
+#progressbar #personal:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/info.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+#progressbar #prix:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/investment.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+#progressbar #photos:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/picture.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+#progressbar #payment:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/adress.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+
+
+#progressbar #confirm:before {
+    content: "";
+    font-family: FontAwesome;
+    width: 50px;  /* Set the width of the pseudo-element */
+    height: 50px;
+    background-image:  url('src/assets/icons/check.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 488%;
+    height: 4px;
+    background: lightgray;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #057a55
+}
+
+.progress {
+    height: 20px
+}
+
+.progress-bar {
+    background-color: #057a55
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover
+}
+
+
+/* /////////////////// */
+
+.hasImage:hover section {
+    background-color: rgba(5, 5, 5, 0.4);
+  }
+  .hasImage:hover button:hover {
+    background: rgba(5, 5, 5, 0.45);
+  }
+  
+  #overlay p,
+  i {
+    opacity: 0;
+  }
+  
+  #overlay.draggedover {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  #overlay.draggedover p,
+  #overlay.draggedover i {
+    opacity: 1;
+  }
+  
+  .group:hover .group-hover\:text-blue-800 {
+    color: #2b6cb0;
+  }

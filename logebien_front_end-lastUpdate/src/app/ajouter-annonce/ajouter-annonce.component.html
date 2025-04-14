@@ -1,0 +1,602 @@
+<div class="container p-[40px] m-auto min-h-screen mb-[-50px]">
+    <div class="row justify-content-center">
+        <div >
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+
+                <form id="msform">
+                    <!-- progressbar -->
+                    <ul id="progressbar"  class="grid grid-cols-3 md:grid-cols-6">
+                        <li class="active m-auto"  id="account" ><strong>Type</strong></li>
+                        <li class="m-auto"  [ngClass]="step>1?'active':''"
+                             id="personal" ><strong>Informations</strong></li>
+                        <li  class="m-auto" [ngClass]="step>2?'active':''" id="payment"  ><strong>Adresse</strong></li>
+                        <li  class="m-auto" [ngClass]="step>3?'active':''" id="photos" ><strong>Photos</strong></li>
+                        <li  class="m-auto" [ngClass]="step>4?'active':''"  id="prix" ><strong>Prix</strong></li>
+                        <li  class="m-auto" [ngClass]="step>5?'active':''" id="confirm" ><strong>Validation</strong></li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br> <!-- fieldsets -->
+                    <fieldset *ngIf="step==1" class="max-w-[900px] m-auto">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Parmi les propositions suivantes, laquelle décrit le mieux votre logement ?</h2>
+                                </div>
+                                
+                            </div>
+                            <div class="bg-gradient-to-bl from-blue-50 to-violet-50 flex items-center justify-center">
+                                <div class="container mx-auto mx-auto p-4 max-w-[800px]">
+                                    <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+                                        <!-- Replace this with your grid items -->
+                                        <div *ngFor="let type of types"
+                                          (click)="selectType(type)" 
+                                          [ngClass]="type.id==typeSeletionne.id?'border-green-600 border-2':''"
+                                        class="bg-white rounded-lg border p-4 hover:border-solid hover:border-2 hover:border-green-600 hover:cursor-pointer">
+                                            <img 
+                                            [src]="type.photo"
+                                                alt="Placeholder Image" class="w-full h-48 rounded-md">
+                                            <div class="px-1 py-4">
+                                                <div class="font-bold text-xl mb-2 text-center">{{type.nom}}</div>
+
+                                            </div>
+
+                                        </div>
+                                       
+
+                                        <!-- Add more items as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <input [disabled]="typeForm.invalid"
+                         (click)="setStep(step+1)" type="button" name="suivant" class="next action-button"
+                            value="suivant" />
+                    </fieldset>
+                    <fieldset *ngIf="step==2" class="max-w-[900px] m-auto">
+                        <form [formGroup]="informationsForm">
+                            <div class="form-card">
+                              <div class="my-5">
+                                <label class="fieldlabels">donner un titre pour l'annonce *</label>
+                              <input type="text" formControlName="titre" placeholder="titre" class="my-0" />
+                              <span *ngIf="informationsForm.controls['titre'].hasError('required')&& informationsForm.controls['titre'].touched"
+                                class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                titre est obligatoire
+                              </span>
+                              </div>
+                              <div class="my-5">
+                              <label class="fieldlabels">de combien de chambres se compose votre bien ? *</label>
+                              <input type="number" formControlName="nbchambre" min="1" placeholder="nombre de chambres"  class="my-0" />
+                                <span *ngIf="informationsForm.controls['nbchambre'].hasError('required')&& informationsForm.controls['nbchambre'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    nombre de chambres est obligatoire
+                                </span>
+                                <span *ngIf="informationsForm.controls['nbchambre'].hasError('min')&& informationsForm.controls['nbchambre'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    nombre de chambres doit être supérieur à 0
+                                </span>
+                          </div>
+                          <div class="my-5">
+                              <label class="fieldlabels">combien de lits ? *</label>
+                              <input type="text" formControlName="nblits" placeholder="nombre de lits" class="my-0"  />
+                              <span *ngIf="informationsForm.controls['nblits'].hasError('required')&& informationsForm.controls['nblits'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    nombre de lits est obligatoire
+                                </span>
+
+                          </div>
+                          <div class="my-5">
+                              <label class="fieldlabels">superficie en m²: *</label>
+                              <input type="text" formControlName="superficie" placeholder="superficie"  class="my-0" />
+                              <span *ngIf="informationsForm.controls['superficie'].hasError('required')&& informationsForm.controls['superficie'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    superficie est obligatoire
+                                </span>
+                              </div>
+                            </div>
+                          </form>
+                        
+                        <input [disabled]="!informationsForm.valid"
+                         (click)="setStep(step+1)" type="button" name="suivant" class="next action-button"
+                            value="suivant" />
+                        <input (click)="setStep(step-1)" type="button" name="précédent"
+                            class="previous action-button-previous" value="Précédent" />
+                    </fieldset>
+                    <fieldset *ngIf="step==3" class="max-w-[900px] m-auto " >
+                        <div class="form-card">
+                           
+                        </div>
+
+                        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 ">
+
+
+                            <div class="lg:col-span-2">
+                                <div  [formGroup]="addressForm"
+                                class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+
+
+                                    <div class="md:col-span-3">
+                                        <label for="address" class="fieldlabels">Adresse / rue</label>
+                                        <input formControlName="rue"
+                                         type="text" name="address" id="address"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                                            placeholder="" />
+                                            <span *ngIf="addressForm.controls['rue'].hasError('required')&& addressForm.controls['rue'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    adresse est obligatoire
+                                </span>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label for="city" class="fieldlabels">Ville</label>
+                                        <select (change)="setCodePostal($event)" 
+                                        formControlName="ville"
+                                        id="city"
+                                        class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        placeholder="" >
+                                        <option value="" selected>selectionner une ville</option>
+
+                                        <option 
+                                         *ngFor="let ville of villes" [value]="ville.delegation">{{ ville.delegation }}</option>
+
+                                        </select>
+
+
+
+                                            <span *ngIf="addressForm.controls['ville'].hasError('required')&& addressForm.controls['ville'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
+                                    ville est obligatoire
+                                </span>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label for="country" class="fieldlabels">pays </label>
+                                        <input formControlName="pays"
+                                         type="text" name="zipcode" id="zipcode"
+                                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            placeholder=""   readonly/>
+                                            <span *ngIf="addressForm.controls['pays'].hasError('required')&& addressForm.controls['pays'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                            pays est obligatoire
+                                </span>
+
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label 
+                                         for="state" class="fieldlabels">gouvernorat / province</label>
+                                     <select formControlName="gouvernorat" (change)="getVillesOfSelectedGouvernorat($event)"
+                                        id="state"
+                                        class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        placeholder="" >
+
+                                        <option value="" selected>selectionner un gouvernorat</option>
+                                        <option *ngFor="let gouvernorat of gouvernorats" [value]="gouvernorat">{{ gouvernorat }}</option>
+
+                                        </select>
+
+
+
+                                            <span *ngIf="addressForm.controls['gouvernorat'].hasError('required')&& addressForm.controls['gouvernorat'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                            gouvernorat est obligatoire
+                                </span>
+
+                                    </div>
+
+                                    <div class="md:col-span-1">
+                                        <label for="zipcode" class="fieldlabels">Zipcode</label>
+                                        <input  formControlName="code_postal"
+                                        type="text" name="zipcode" id="zipcode"
+                                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            placeholder="" value="" readonly/>
+                                            <span *ngIf="addressForm.controls['code_postal'].hasError('required')&& addressForm.controls['code_postal'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                            code postal est obligatoire
+                                </span>
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input [disabled]="!addressForm.valid" (click)="setStep(step+1)" type="button" name="suivant" class="next action-button"
+                            value="suivant" /> <input (click)="setStep(step-1)" type="button" name="précédent"
+                            class="previous action-button-previous" value="précédent" />
+                    </fieldset>
+                    <fieldset *ngIf="step==4" class="max-w-[900px] m-auto">
+                        <div class="form-card">
+                            <div class="row">
+                              
+                            </div> <br><br>
+                            <div class="">
+                                <main class=" mx-auto max-w-screen-lg h-full px-0">
+                                    <!-- file upload modal -->
+                                    <article aria-label="File Upload Modal"
+                                        class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
+                                        <!-- overlay -->
+                                        <div id="overlay"
+                                            class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md">
+                                            <i>
+                                                <svg class="fill-current w-12 h-12 mb-3 text-blue-700"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
+                                                </svg>
+                                            </i>
+                                            <p class="text-lg text-blue-700">Drop files to upload</p>
+
+
+                                        </div>
+
+                                        <!-- scroll area -->
+                                        <section class="h-full overflow-auto p-8 w-full h-full flex flex-col"
+                                        (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+                                        >
+                                            <header
+                                                class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
+                                                <p
+                                                    class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
+                                                    <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
+                                                </p>
+                                                <input #fileInput (change)="onFileSelected($event)" id="hidden-input"
+                                                    type="file" multiple class="hidden" />
+                                                <a (click)="openFileExplorer()" id="button"
+                                                    class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
+                                                    Upload a file
+                                                </a>
+                                            </header>
+
+                                            <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
+                                                To Upload
+                                            </h1>
+                                            <p class="pt-8 pb-3 font-semibold sm:text-lg text-red-900">
+                                                * au moin 5 photos
+                                            </p>
+
+                                            <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                                                <li  *ngIf="images.length==0"
+                                                id="empty"
+                                                    class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+                                                    <img class="mx-auto w-32"
+                                                        src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
+                                                        alt="no data" />
+                                                    <span class="text-small text-gray-500">No files selected</span>
+                                                </li>
+
+
+
+                                                <li *ngFor="let selectedFile of selectedFiles; let i = index"
+                                                    class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
+                                                    <article tabindex="0"
+                                                        class="group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
+                                                        <img [src]="selectedFile.url" alt="upload preview"
+                                                            class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
+
+                                                        <section
+                                                            class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
+                                                            <h1 class="flex-1"></h1>
+                                                            <div class="flex">
+                                                                <span
+                                                                    class="p-1  focus:outline-none hover:bg-gray-300 rounded-md">
+
+
+
+                                                                    <fa-icon title="rendre principale" [icon]="FaImage"
+                                                                        class="text-white-600"></fa-icon>
+                                                                </span>
+
+                                                                <p class="p-1 size text-xs"></p>
+                                                                <a (click)="deleteImage(i)"
+                                                                    class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+
+                                                                    <fa-icon  title="supprimer" [icon]="faTrash"
+                                                                        class="text-white-600"></fa-icon>
+
+                                                                </a>
+                                                            </div>
+                                                        </section>
+                                                    </article>
+                                                </li>
+
+                                            </ul>
+                                        </section>
+
+                                    </article>
+                                </main>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <input  [disabled]="verifNbImages()"
+                        (click)="setStep(step+1)" type="button" name="suivant" class="next action-button"
+                            value="suivant" /> <input (click)="setStep(step-1)" type="button" name="précédent"
+                            class="previous action-button-previous" value="précédent" />
+
+                    </fieldset>
+
+                    <fieldset *ngIf="step==5" class="max-w-[900px] m-auto">
+                        <form [formGroup]="pricingForm" >
+                            <div class="form-card">
+                              <div class="row">
+                                <div class="col-7">
+                                  <h2 class="fs-title">Quels sont les prix que vous proposez:</h2>
+                                </div>
+                              </div>
+                              <label class="fieldlabels">en printemps</label>
+                                <span *ngIf="pricingForm.controls['prixPrintemps'].hasError('required')&& pricingForm.controls['prixPrintemps'].touched"
+                                        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                        prix de printemps est obligatoire
+                                    </span>
+                              <input type="text" formControlName="prixPrintemps" placeholder="prix d'une nuité en printemps" />
+                              <label class="fieldlabels">en été*</label>
+                              <span *ngIf="pricingForm.controls['prixEte'].hasError('required')&& pricingForm.controls['prixEte'].touched"
+                                    class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                    prix d'été est obligatoire
+                                </span>
+                              <input type="number" min="1" formControlName="prixEte" placeholder="prix d'une nuité en été" />
+                              <label class="fieldlabels">en automne *</label>
+                                <span *ngIf="pricingForm.controls['prixAutomne'].hasError('required')&& pricingForm.controls['prixAutomne'].touched"
+                                        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                        prix d'automne est obligatoire
+                                    </span>
+                              <input type="text" formControlName="prixAutomne" placeholder="prix d'une nuité en automne" />
+                              <label class="fieldlabels">en hiver :*</label>
+                                <span *ngIf="pricingForm.controls['prixHiver'].hasError('required')&& pricingForm.controls['prixHiver'].touched"
+                                        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                        prix d'hiver est obligatoire
+                                    </span>
+                              <input type="text" formControlName="prixHiver" placeholder="prix d'une nuité en hiver" />
+                            </div>
+                          
+                            
+                          </form>
+                          
+                         <input (click)="setStep(step+1)" type="button" name="suivant" class="next action-button"
+                            value="suivant" />
+                        <input (click)="setStep(step-1)" type="button" name="précédent"
+                            class="previous action-button-previous" value="Précédent" />
+                    </fieldset>
+
+
+                    <fieldset *ngIf="step==6" class="max-w-[900px] m-auto">
+                        <div [formGroup]="informationsForm" class="form-card grid grid-cols-1">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Etes vous sûr des informations que vous avez entrées ?</h2>
+                                </div>
+                               
+                            </div>
+                            <div class="">
+                                <label class="fieldlabels"> titre de l'annonce *</label>
+                                <input  formControlName="titre" 
+                                type="text" name="fname" placeholder="titre" readonly/>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="">
+                                    <label class="fieldlabels">nombre de chambres : *</label>
+                                    <input formControlName="nbchambre"
+                                     type="number" min="1" value="1" name="lname"
+                                        placeholder="nombre de chambres" readonly/>
+                                </div>
+                                <div class="">
+                                    <label class="fieldlabels">
+                                        nombre de lits : *</label>
+                                    <input formControlName="nblits"
+                                     type="text" name="phno" placeholder="nombre de lits" readonly/>
+                                </div>
+
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+
+                                <div class="">
+                                    <label class="fieldlabels">superficie en m²: *</label>
+                                    <input formControlName="superficie"
+                                     type="text" name="phno_2" placeholder="superficie" readonly />
+
+                                </div>
+                                <div class="">
+                                    <label class="fieldlabels">type de bien ? *</label>
+                                    <select class="form-select block w-full mt-1" name="type" id="type" disabled>
+                                        <option *ngFor="let type of types"
+                                            [selected]="type.id==typeSeletionne.id">{{type.nom}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 ">
+
+
+                            <div class="lg:col-span-2">
+                                <div [formGroup]="addressForm" class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+
+
+                                    <div class="md:col-span-3">
+                                        <label for="address" class="fieldlabels">Adresse / rue</label>
+                                        <input  formControlName="rue"
+                                        type="text" name="address" id="address"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                                            placeholder="" readonly/>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label for="city" class="fieldlabels">ville</label>
+                                        <input formControlName="ville"
+                                         type="text" name="city" id="city"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                                            placeholder="" readonly/>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label for="country" class="fieldlabels">pays</label>
+                                        <input formControlName="pays"
+                                         type="text" name="zipcode" id="zipcode"
+                                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            placeholder="" value="" readonly />
+
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label for="state" class="fieldlabels">gouvernorat / province</label>
+                                        <input formControlName="gouvernorat"
+                                         type="text" name="zipcode" id="zipcode"
+                                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            placeholder="" value=""  readonly/>
+
+                                    </div>
+
+                                    <div class="md:col-span-1">
+                                        <label for="zipcode" class="fieldlabels">code postal</label>
+                                        <input formControlName="code_postal" 
+                                         type="text" name="zipcode" id="zipcode" readonly
+                                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            placeholder="" value="" />
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <label class="fieldlabels">photos: *</label>
+                        <div class="form-card my-10">
+
+                            <div class="">
+                                <main class=" mx-auto max-w-screen-lg h-full px-0">
+                                    <!-- file upload modal -->
+                                    <article aria-label="File Upload Modal"
+                                        class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
+                                        <!-- overlay -->
+
+
+                                        <!-- scroll area -->
+                                        <section class="h-full overflow-auto p-8 w-full h-full flex flex-col">
+
+
+                                            <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                                               
+
+
+
+                                                <li *ngFor="let selectedFile of selectedFiles"
+                                                    class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
+                                                    <article tabindex="0"
+                                                        class="group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
+                                                        <img [src]="selectedFile.url" alt="upload preview"
+                                                            class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
+
+                                                        <section
+                                                            class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
+                                                            <h1 class="flex-1"></h1>
+                                                            <div class="flex">
+                                                                <span
+                                                                    class="p-1  focus:outline-none hover:bg-gray-300 rounded-md">
+
+
+
+                                                                    <fa-icon title="rendre principale" [icon]="FaImage"
+                                                                        class="text-white-600"></fa-icon>
+                                                                </span>
+
+                                                                <p class="p-1 size text-xs"></p>
+                                                                <a
+                                                                    class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+
+                                                                    <fa-icon title="supprimer" [icon]="faTrash"
+                                                                        class="text-white-600"></fa-icon>
+
+                                                                </a>
+                                                            </div>
+                                                        </section>
+                                                    </article>
+                                                </li>
+
+                                            </ul>
+                                        </section>
+
+                                    </article>
+                                </main>
+                            </div>
+
+
+
+
+
+                        </div>
+                        <div    [formGroup]="pricingForm" 
+                         class="form-card">
+                           
+
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="fieldlabels">prix en printemps</label>
+                                    <input formControlName="prixPrintemps"
+                                     type="text" name="fname" placeholder="prix d'une nuité en printemps" readonly />
+                                </div>
+                                <div>
+                                    <label class="fieldlabels">prix en
+                                        été*</label>
+                                    <input formControlName="prixEte"
+                                     type="number" min="1" value="1" name="lname"
+                                        placeholder="prix d'une nuité en été"  readonly/>
+                                </div>
+
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="fieldlabels">prix
+                                        en automne *</label>
+                                    <input  formControlName="prixAutomne"
+                                    type="text" name="phno" placeholder="prix d'une nuité en automne" readonly />
+                                </div>
+                                <div>
+
+                                    <label class="fieldlabels">prix en hiver
+                                        :*</label>
+                                    <input formControlName="prixHiver"
+                                     type="text" name="phno_2" placeholder="prix d'une nuité en hiver" readonly/>
+                                </div>
+
+                            </div>
+
+
+                        </div> <input type="button" (click)="ajouterAnnonce()"
+                         class="next action-button" value="valider" />
+                        <input (click)="setStep(step-1)" type="button" name="précédent"
+                            class="previous action-button-previous" value="Précédent" />
+                    </fieldset>
+
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,221 @@
+
+    
+    <div  [formGroup]="informationsForm"
+     class="p-4 sm:ml-64 mt-[50px]"
+     
+     >
+     
+    <fieldset  class="max-w-[900px] m-auto mt-[50px]">
+
+<span [ngClass]="{'bg-green-50 ext-green-700 ring-green-600/20': annonce?.etat=='accepté','bg-yellow-50 text-yellow-800 ring-yellow-600/20': annonce?.etat=='en attente','bg-red-50 text-red-700 ring-red-600/20': annonce?.etat=='refusé'}"
+ class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium  ring-1 ring-inset  m-2">
+    {{annonce?.etat}} 
+</span>
+
+<span *ngIf="annonce?.etat=='accepté'"
+ [ngClass]="{'bg-green-50 ext-green-700 ring-green-600/20': annonce?.status=='visible','bg-red-50 text-red-700 ring-red-600/20': annonce?.status=='archivé'}"
+ class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium  ring-1 ring-inset  m-2">
+    {{annonce?.status}}
+</span>
+
+
+
+
+<div class="form-card grid grid-cols-1">
+            <div class="">
+                <label class="fieldlabels"> titre de l'annonce *</label>
+                <input formControlName="titre" 
+                type="text" name="fname" placeholder="titre" readonly />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="">
+                    <label class="fieldlabels">nombre de chambres : *</label>
+                    <input formControlName="nbchambre"
+                      type="number" min="1" value="1" name="lname"
+                        placeholder="nombre de chambres" readonly />
+                </div>
+                <div class="">
+                    <label class="fieldlabels">
+                        nombre de lits : *</label>
+                    <input      formControlName="nblits" 
+                    type="text" name="phno" placeholder="nombre de lits" readonly />
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="">
+                    <label class="fieldlabels">superficie en m²: *</label>
+                    <input  formControlName="superficie"
+                     type="text" name="phno_2" placeholder="superficie" readonly />
+
+                </div>
+                <div class="">
+                    <label class="fieldlabels">type de bien ? *</label>
+                    <select formControlName="typeId" class="form-select block w-full mt-1" name="type" id="type" >
+                        <option *ngFor="let type of types" [value]="type.id" [selected]="type.id === annonce?.typeBien?.id">
+                            {{type.nom}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 ">
+
+
+            <div class="lg:col-span-2">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+
+
+                    <div class="md:col-span-3">
+                        <label for="address" class="fieldlabels">Addresse / rue</label>
+                        <input      formControlName="rue"
+                        type="text" name="address" id="address"
+                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                            placeholder="" readonly />
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="city" class="fieldlabels">ville</label>
+                        <input     formControlName="ville" 
+                        type="text" name="city" id="city"
+                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                            placeholder="" readonly />
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="country" class="fieldlabels">pays</label>
+                        <input type="text" name="zipcode" id="zipcode" formControlName="pays"
+                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                            placeholder="" value="" readonly />
+
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="state" class="fieldlabels">gouvernorat / province</label>
+                        <input type="text" name="zipcode" id="zipcode" formControlName="gouvernorat"
+                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                            placeholder="" value="" readonly />
+
+                    </div>
+
+                    <div class="md:col-span-1">
+                        <label for="zipcode" class="fieldlabels">code postal</label>
+                        <input type="text" name="zipcode" id="zipcode" formControlName="code_postal"
+                            class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                            placeholder="" value="" readonly />
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="">
+                <main class=" mx-auto max-w-screen-lg h-full px-0">
+                    <!-- file upload modal -->
+                    <article aria-label="File Upload Modal"
+                        class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
+                        <!-- overlay -->
+
+
+                        <!-- scroll area -->
+                        <section class="h-full overflow-auto p-8 w-full h-full flex flex-col">
+                            <label  class="fieldlabels">photos</label>
+
+                        
+                            <ul id="gallery" class="flex flex-1 flex-wrap my-1 ">
+                               
+
+
+
+                                <li *ngFor="let image of annonce.photos"
+                                class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
+                              <article tabindex="0"
+                                       class="cursor-zoom-in group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
+                                <img alt="upload preview"
+                                     class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed"
+                                     [src]="image" />
+                              </article>
+                            </li>
+                            
+
+                            </ul>
+                        </section>
+
+                    </article>
+                </main>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="form-card">
+           
+
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="fieldlabels">prix en printemps</label>
+                    <input type="text" name="fname" placeholder="prix d'une nuité en printemps" formControlName="prixPrintemps" readonly />
+                </div>
+                <div>
+                    <label class="fieldlabels">prix en
+                        été*</label>
+                    <input type="number" min="1" value="1" name="lname"
+                        placeholder="prix d'une nuité en été" readonly  />
+                </div>
+
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="fieldlabels">prix
+                        en automne *</label>
+                    <input type="text" name="phno" placeholder="prix d'une nuité en automne" formControlName="prixAutomne" readonly />
+                </div>
+                <div>
+
+                    <label class="fieldlabels">prix en hiver
+                        :*</label>
+                    <input type="text" name="phno_2" placeholder="prix d'une nuité en hiver"  formControlName="prixHiver" readonly />
+                </div>
+
+            </div>
+
+
+        </div> 
+        <button (click)="accepterAnnonce(annonce?.id)"
+        *ngIf="annonce?.etat=='en attente'"
+        class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 border border-green-900 rounded m-2">
+             <fa-icon [icon]="faCheck"></fa-icon>
+           </button>
+   
+  
+
+         
+         <button *ngIf="annonce?.status=='archivé' && annonce?.etat!='en attente'"
+           (click)="rendreAnnonceVisible(annonce?.id)"
+         class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 border border-yellow-700 rounded m-2">
+             <fa-icon [icon]="faEye"></fa-icon>
+           </button>
+           <button *ngIf="annonce?.status=='visible' && annonce?.etat!='en attente'"
+           (click)="archiverAnnonce(annonce?.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded m-2">
+             <fa-icon [icon]="faArchive"></fa-icon>
+           </button>
+    </fieldset>
+    </div>

@@ -1,0 +1,209 @@
+<section class="relative table w-full py-32 lg:py-36 ] bg-no-repeat bg-center bg-cover">
+  <div class="absolute inset-0 bg-black opacity-80"></div>
+  <div class="container">
+    <div class="grid grid-cols-1 text-center mt-10">
+      <h3 class="md:text-4xl text-3xl md:leading-normal leading-normal font-medium text-white">Grid View Layout</h3>
+    </div><!--end grid-->
+  </div><!--end container-->
+</section><!--end section-->
+<div class="relative">
+  <div class="shape overflow-hidden z-1 text-white dark:text-slate-900">
+    <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+    </svg>
+  </div>
+</div>
+<div class="flex flex-col">
+
+
+  <div class="bg-white p-6 rounded-xl shadow-lg max-w-[1000px] m-auto mt-[-120px] z-10 w-[90%]">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+      <div class="flex flex-col">
+        <label for="name" class="font-medium text-sm text-stone-600">titre</label>
+        <input type="text" id="name" placeholder="s+2 à Nabeul" [(ngModel)]="searchedValue"
+          class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+      </div>
+
+      <div class="flex flex-col">
+        <label for="email" class="font-medium text-sm text-stone-600">ville</label>
+        <select id="status" [(ngModel)]="searchedGouvernorat"
+          class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+          <option value="" selected>selectionner une ville</option>
+          <option    *ngFor="let gouvernorat of gouvernorats" [value]="gouvernorat">{{ gouvernorat }}</option>
+
+
+        </select>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="date" class="font-medium text-sm text-stone-600">budget</label>
+        <!-- <input
+            type="date"
+            id="date"
+            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50"
+          > -->
+        <select id="dropdownDefaultButton1" data-dropdown-toggle="dropdown1" id="status" (change)="setSearchedPrixMinAndMax($event)"
+          class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+          <option value="all" selected>selectionner votre budget</option>
+          <option *ngFor="let b of budgets index as i" [value]="i">{{ b[0] }} ----> {{b[1]}}</option>
+        </select>
+        <!-- <button id="dropdownDefaultButton1" data-dropdown-toggle="dropdown1" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+            </button> -->
+
+        <!-- Dropdown menu -->
+        <!-- <div id="dropdown1"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton1">
+            <li>
+              <a href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                out</a>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+
+      <div class="flex flex-col">
+        <label for="status" class="font-medium text-sm text-stone-600">catégorie / type </label>
+
+        <select id="status" (change)="setSearchedTypeBien($event)"
+          class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+          <option value="" selected>selectionner une catégorie</option> 
+          <option *ngFor="let type of typesDeBien" [value]="type.id">{{ type.nom }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid md:flex grid-cols-2 space-x-4 w-full mt-6">
+      <button (click)="searchAnnonces()"
+        class="px-4 py-2 rounded-full text-green-50 bg-green-600 hover:bg-green-800 font-bold text-white shadow-lg shadow-green-200 transition ease-in-out duration-200 translate-10">
+        Rechercher
+      </button>
+    </div>
+  </div>
+</div>
+<!--end container-->
+<!-- End Hero -->
+
+<!-- Start -->
+<section class="relative lg:py-24 py-16 px-16">
+  <div class="container m-auto">
+    <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
+      <div *ngFor="let annonce of annonces"
+        class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
+        <div class="relative">
+          <img [src]="annonce.image" alt="Annonce image" *ngIf="annonce.image">
+        
+          <div class="absolute top-4 end-4">
+            <a href="javascript:void(0)"
+              class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600">
+              <i class="mdi mdi-heart mdi-18px"></i>
+            </a>
+          </div>
+        </div>
+        
+
+        <div class="p-6">
+          <div class="pb-6">
+            <a routerLink="/consulter-annonce/{{annonce.id}}" href="property-detail.html"
+              class="text-lg hover:text-green-600 font-medium ease-in-out duration-500">{{annonce.titre}} à
+              {{annonce.ville}}</a>
+          </div>
+
+          <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
+            <li class="flex items-center me-4 text-center">
+
+              <fa-icon [icon]="faCompressArrowsAlt" class="text-green-600 mr-1"></fa-icon>
+              <span>{{annonce.superficie}} m²</span>
+            </li>
+
+            <li class="flex items-center me-4 text-center">
+
+              <fa-icon [icon]="faBed" class="text-green-600 mr-1"></fa-icon>
+              <span>{{annonce.nblits}} lits</span>
+            </li>
+
+            <li class="flex items-center text-center">
+
+              <fa-icon [icon]="faCouch" class="text-green-600 mr-1"></fa-icon>
+              <span>{{annonce.nbchambre}} chambres</span>
+            </li>
+          </ul>
+
+          <ul class="pt-6 flex justify-between items-center list-none">
+            <li>
+              <span class="text-slate-400">Prix</span>
+
+            </li>
+
+            <li>
+
+              <p class="text-lg font-medium">{{getPrixSaisonActuelle(annonce)}} dt </p>
+
+            </li>
+          </ul>
+        </div>
+      </div><!--end property content-->
+
+
+
+
+
+
+    </div><!--en grid-->
+    <div class="grid md:grid-cols-12 grid-cols-1 mt-8" *ngIf="annonces?.totalPages > 1">
+      <div class="md:col-span-12 text-center">
+        <nav>
+          <ul class="inline-flex items-center -space-x-px">
+            <!-- Previous Page Button -->
+            <li>
+              <a (click)="previousPage()" 
+                 [class.disabled]="currentPage === 1" 
+                 class="w-10 h-10 inline-flex justify-center items-center mx-1 rounded-full text-slate-400 bg-white dark:bg-slate-900 hover:text-white shadow-sm dark:shadow-gray-700 hover:border-green-600 dark:hover:border-green-600 hover:bg-green-600 dark:hover:bg-green-600">
+                &lt;
+              </a>
+            </li>
+            
+            <!-- Page Numbers -->
+            <li *ngFor="let i of pages">
+              <a *ngIf="i === currentPage" 
+                 (click)="gotoPage(i)"
+                 class="z-10 w-10 h-10 inline-flex justify-center items-center mx-1 rounded-full text-white bg-green-600 shadow-sm dark:shadow-gray-700">
+                 {{ i }}
+              </a>
+              <a *ngIf="i !== currentPage" 
+                 (click)="gotoPage(i)"
+                 class="w-10 h-10 inline-flex justify-center items-center mx-1 rounded-full text-slate-400 hover:text-white bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-700 hover:border-green-600 dark:hover:border-green-600 hover:bg-green-600 dark:hover:bg-green-600">
+                 {{ i }}
+              </a>
+            </li>
+    
+            <!-- Next Page Button -->
+            <li>
+              <a (click)="nextPage()" 
+                 [class.disabled]="currentPage === annonces.totalPages" 
+                 class="w-10 h-10 inline-flex justify-center items-center mx-1 rounded-full text-slate-400 bg-white dark:bg-slate-900 hover:text-white shadow-sm dark:shadow-gray-700 hover:border-green-600 dark:hover:border-green-600 hover:bg-green-600 dark:hover:bg-green-600">
+                &gt;
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    
+  </div><!--end container-->
+</section><!--end section-->

@@ -1,0 +1,118 @@
+<div class="max-w-[900px] mx-auto mt-20" #PrintTemplateTpl>
+    <header class="clearfix">
+        <div id="logo">
+          <img src="../../assets/images/logo/logo_1.jpg">
+        </div>
+        <div id="company">
+          <h2 class="name">Logebien</h2>
+          <div>tunis , Tunisie</div>
+          
+          <div><a href="mailto:Logebien@contact.com">Logebien@contact.com</a></div>
+        </div>
+     
+      </header>
+      <main>
+        <div id="details" class="clearfix">
+          <div id="client">
+            <div class="to">facture pour :</div>
+            <h2 class="name">{{contratInfos.locataire.prenom}} {{contratInfos.locataire.nom}} </h2>
+            
+            <div class="email"><a href="mailto:john@example.com">{{contratInfos.locataire.email}}</a></div>
+          </div>
+          <div id="invoice">
+            <h1>Contrat {{idContrat}}</h1>
+            <div class="date">de : {{contratInfos.datedebut| date: 'dd/MM/yyyy'}}</div>
+            <div class="date">jusqu'à: {{contratInfos.datefin| date: 'dd/MM/yyyy'}}</div>
+            
+          </div>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th class="no">#</th>
+              <th class="desc">période</th>
+              <th class="unit">prix nuité</th>
+              <th class="qty">nb nuités</th>
+              <th class="total">total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of infoOfReservation index as i">
+    <ng-container *ngIf="item.dates.length > 0">
+        <td class="no">0{{i+1}}</td>
+        <td class="desc">de  {{ item.dates[0] | date: 'dd/MM/yyyy' }}
+            jusqu'à {{item.dates[item.dates.length-1] | date: 'dd/MM/yyyy'}}</td>
+        <td class="text-center">{{item.prixUnit}}</td>
+        <td class="text-center">{{item.dates.length}}</td>
+        <td class="total">{{item.dates.length * item.prixUnit}}</td>
+    </ng-container>
+    
+     
+    
+            </tr>
+            <!-- <tr>
+              <td class="no">02</td>
+              <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
+              <td class="unit">$40.00</td>
+              <td class="qty">80</td>
+              <td class="total">$3,200.00</td>
+            </tr>
+            <tr>
+              <td class="no">03</td>
+              <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
+              <td class="unit">$40.00</td>
+              <td class="qty">20</td>
+              <td class="total">$800.00</td>
+            </tr> -->
+          </tbody>
+          <tfoot>
+            
+         
+            <tr>
+              <td colspan="2"></td>
+              <td>
+<span *ngIf="contratInfos.etat=='non payé'" class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">non payée</span>
+<span *ngIf="contratInfos.etat=='payé'" class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-700/10">payée</span>
+           
+</td>
+              <td >PRIX TOTAL</td>
+              <td>{{contratInfos.montant}}</td>
+    
+            </tr>
+            <tr>
+                <td class="text-center"
+                colspan="5">
+    <h5 class="text-black">consulter les détails de bien loué sur :</h5>
+    <a  class="text-blue-500 lienAnnonce"
+      routerLink="/consulter-annonce/{{contratInfos.annonce.id}}"
+      >http://localhost:4200/consulter-annonce/{{contratInfos.annonce.id}}</a>
+    
+      <qrcode 
+       [qrdata]="'http://localhost:4200/consulter-annonce/'+contratInfos.annonce.id" [cssClass]="'qrcode w-[148px] h-[148px] m-auto hidden print:block'"  [errorCorrectionLevel]="'M'"></qrcode>
+    
+    
+    
+                </td>
+    
+      
+              </tr>
+          </tfoot>
+        </table>
+        <div id="thanks">Thank you!</div>
+        <div id="notices">
+          <div>NOTICE:</div>
+          <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+        </div>
+      </main>
+     
+    
+      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded m-2 btn"
+     (click)="imprimerFacture()"
+      >
+        imprimer
+      </button>
+    
+
+    
+    
+    </div>
