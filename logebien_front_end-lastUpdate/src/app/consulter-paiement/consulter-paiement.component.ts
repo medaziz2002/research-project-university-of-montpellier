@@ -1,8 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { PaiementService } from '../services/paiement/paiement.service';
-import { ContratInfosService } from '../services/paiement/contrat-infos.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContratLocationService } from '../services/contratLocation/contrat-location.service';
 import { ContratLocation } from '../models/ContratLocation.model';
 
 @Component({
@@ -65,7 +62,7 @@ export class ConsulterPaiementComponent {
 {saison:"Ete",prixUnit:0,nbJours:0,prixTotal:0,dates:[]},
 {saison:"Automne",prixUnit:0,nbJours:0,prixTotal:0,dates:[]}];
   constructor(private router:Router,
-    private activatedRoute:ActivatedRoute,private contratService:ContratLocationService) { }
+    private activatedRoute:ActivatedRoute) { }
 
 
  ngOnInit(): void {
@@ -74,26 +71,11 @@ export class ConsulterPaiementComponent {
   this.idContrat=this.activatedRoute.snapshot.params['id'];
   //this.contratInfos=this.contratInfosService.getContratLocation();
 
-  this.getContratById(this.idContrat);
+
   
  }
 
- getContratById(id:number){
-  this.contratService.getContratById(id).subscribe(
-    (response)=>{
-      
-      this.contratInfos=response;
-    
-      this.contratInfos.datedebut=new Date(this.contratInfos.datedebut);
-      this.contratInfos.datefin=new Date(this.contratInfos.datefin);
-      console.log(this.contratInfos);
-      this.getInfosBySaisons();
-    },
-    (error)=>{
-      console.log(error);
-    }
-  )
-}
+
 
 
  getInfosBySaisons(){

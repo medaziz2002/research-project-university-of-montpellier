@@ -6,11 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PaiementService } from '../services/paiement/paiement.service';
 import { ContratInfosService } from '../services/paiement/contrat-infos.service';
 import { ContratLocation } from '../models/ContratLocation.model';
-import { ContratLocationService } from '../services/contratLocation/contrat-location.service';
 import Swal from 'sweetalert2';
-import { NonDisponibilitéService } from '../services/NonDisponibilité/non-disponibilité.service';
 import { Evaluation } from '../models/Evaluation.model';
-import { EvaluationService } from '../services/evaluation/evaluation.service';
 import { AuthService } from '../services/auth/auth.service';
 import { User } from '../models/User.model';
 import { ReservationService } from '../services/reservation/reservation.service';
@@ -54,13 +51,8 @@ export class ConsulterAnnonceComponent {
   constructor(
     private annonceService: AnnonceService,
     private route: ActivatedRoute,
-    private paiementService: PaiementService,
     private router: Router,
-    private contratInfosService: ContratInfosService,
-    private contratService: ContratLocationService,
     private reservationService: ReservationService,
-    private nondispobiliteService: NonDisponibilitéService,
-    private evaluationService: EvaluationService,
     public authService: AuthService
   ) {
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -108,64 +100,9 @@ export class ConsulterAnnonceComponent {
     };
   }
 
-  getNonDisponibiliteByAnnonceId() {
-    this.nondispobiliteService.getNonDisponibilitéByAnnonceId(this.annonce.id).subscribe(
-      (response) => {
-        console.log(response);
-        for (let nonDispo of response) {
-          console.log(nonDispo);
 
-          let datedebut = new Date(nonDispo.date_debut);
-          let datefin = new Date(nonDispo.date_fin);
-          console.log(datedebut);
-          console.log(datefin);
 
-          let nbjours = Math.round(Math.abs((datefin.getTime() - datedebut.getTime()) / (24 * 60 * 60 * 1000))) + 1;
-          console.log(nbjours);
-          for (let i = 0; i < nbjours; i++) {
-            var date = new Date(datedebut);
-            date.setDate(date.getDate() + i);
-            this.disabledDates.push(date);
-          }
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  }
 
-  getContratByIdAnnonce() {
-    this.contratService.GetcontratByAnnonce(this.annonce.id).subscribe(
-      (response) => {
-        console.log(response);
-        this.contrats = response;
-        console.log(this.contrats);
-        for (let contrat of this.contrats) {
-          console.log("contrat");
-          console.log(contrat);
-          console.log(contrat.datedebut);
-          console.log(contrat.datefin);
-          console.log(this.disabledDates);
-          contrat.datedebut = new Date(contrat.datedebut);
-          contrat.datefin = new Date(contrat.datefin);
-
-          let nbjours = Math.round(Math.abs((contrat.datefin.getTime() - contrat.datedebut.getTime()) / (24 * 60 * 60 * 1000))) + 1;
-          console.log(nbjours);
-          for (let i = 0; i < nbjours; i++) {
-            var date = new Date(contrat.datedebut);
-            date.setDate(date.getDate() + i);
-            this.disabledDates.push(date);
-          }
-
-          console.log(this.disabledDates);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  }
 
   Reserver() {
     const amount: number = this.totalPrice * 1000;

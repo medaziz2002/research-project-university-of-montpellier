@@ -44,8 +44,6 @@ return this.http.get<any>(this.apiURL+'/getUser',options);
 
 
 
-
-
     return this.http.post<any>(this.apiURL+"/api/v1/users/add",user);
   }
 

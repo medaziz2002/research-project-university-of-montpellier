@@ -16,8 +16,6 @@ import { ModifierAnnonceComponent } from './modifier-annonce/modifier-annonce.co
 import { ConsulterProfilComponent } from './consulter-profil/consulter-profil.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { AdminSideBarComponent } from './admin/layout/admin-side-bar/admin-side-bar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -29,18 +27,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PaiementComponent } from './paiement/paiement.component';
-import { NgPrintModule } from 'ng-print';
-import { NgxPrintModule } from 'ngx-print';
-import { NgxPrinterModule } from 'ngx-printer';
+
 import { PaiementSuccesComponent } from './paiement-succes/paiement-succes.component';
 import { PaiementFailComponent } from './paiement-fail/paiement-fail.component';
 import { ConsulterPaiementComponent } from './consulter-paiement/consulter-paiement.component';
-import { QRCodeModule } from 'angularx-qrcode';
 import { TestingComponent } from './testing/testing.component';
-import { SimpleModalModule } from 'ngx-simple-modal';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TokenInterceptor } from './services/tokenInterceptor/token.interceptor';
 import { DatePipe } from '@angular/common';
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -85,11 +81,8 @@ import { DatePipe } from '@angular/common';
     BsDatepickerModule.forRoot(),
     HttpClientModule,
     BrowserModule,
-    NgxPrinterModule.forRoot({printOpenWindow: true}),
-    QRCodeModule,
+    NgxPrintModule,
     MatSnackBarModule,
-    
-
     
   ],
   providers: [

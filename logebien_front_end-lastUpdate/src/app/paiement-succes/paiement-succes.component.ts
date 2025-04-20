@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaiementService } from '../services/paiement/paiement.service';
-import { ContratLocationService } from '../services/contratLocation/contrat-location.service';
+
 
 @Component({
   selector: 'app-paiement-succes',

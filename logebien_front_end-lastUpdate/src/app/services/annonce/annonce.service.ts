@@ -10,10 +10,8 @@ export interface SaveFile$Params {
   providedIn: 'root'
 })
 export class AnnonceService {
-  apiURL: string = "http://localhost:8888/microservice-logement/api/v1/annonces"
+ apiURL: string = "http://localhost:8888/microservice-logement/api/v1/annonces"
   constructor(private http:HttpClient) { }
-
-
 
   getAnnonces(params:HttpParams):Observable<any>{
     return this.http.get<any>(this.apiURL,{params:params});

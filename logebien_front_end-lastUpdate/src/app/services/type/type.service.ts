@@ -12,7 +12,7 @@ export interface SaveFile$Params {
   providedIn: 'root'
 })
 export class TypeService {
-  apiURL: string = "http://localhost:8888/microservice-logement/api/v1/typebiens"
+   apiURL: string = "http://localhost:8888/microservice-logement/api/v1/typebiens"
 
   constructor(private http : HttpClient) { }
 

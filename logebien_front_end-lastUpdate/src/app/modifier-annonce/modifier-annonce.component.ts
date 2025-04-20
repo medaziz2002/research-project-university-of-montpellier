@@ -6,8 +6,7 @@ import { AnnonceService } from '../services/annonce/annonce.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TypeService } from '../services/type/type.service';
 import Swal from 'sweetalert2';
-import { NonDisponibilitéService } from '../services/NonDisponibilité/non-disponibilité.service';
-import { max } from 'rxjs';
+
 import { User } from '../models/User.model';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -37,7 +36,7 @@ export class ModifierAnnonceComponent {
    bsRangeValue!: Date[];
    disabledDates: Date[] = [];
   constructor(private annonceService:AnnonceService,private route:ActivatedRoute,private router:Router,private fb:FormBuilder,
-    private typeService:TypeService,private nondispobiliteService:NonDisponibilitéService,private authService:AuthService) { }
+    private typeService:TypeService) { }
     
   async  ngOnInit() {
 
