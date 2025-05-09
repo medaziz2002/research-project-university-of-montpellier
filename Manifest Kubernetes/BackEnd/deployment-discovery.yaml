@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka-server
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+    spec:
+      containers:
+      - name: eureka-server
+        image: malikmnsr/discovery-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8761
+        env:
+        - name: SPRING_APPLICATION_NAME
+          value: "microservice-eureka"
+        - name: SPRING_CONFIG_IMPORT
+          value: "configserver:http://config-server.default.svc.cluster.local:9090"  
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+        # ✅ Correct placement of livenessProbe
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8761
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        # Optionally add readinessProbe (recommended)
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8761
+          initialDelaySeconds: 15
+          periodSeconds: 5

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  labels:
+    app: api-gateway
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: malikmnsr/gateway-service:latest1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8888
+        env:
+        - name: SPRING_APPLICATION_NAME
+          value: "microservice-gateway"
+        - name: SPRING_CONFIG_IMPORT
+          value: "configserver:http://config-server.default.svc.cluster.local:9090"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://eureka-server.default.svc.cluster.local:8761/eureka/"
+        - name: SERVER_PORT
+          value: "8888"
+        - name: SPRING_CLOUD_GATEWAY_GLOBALCOURS_ALLOWEDORIGINS
+          value: "*"
+        - name: SPRING_CLOUD_GATEWAY_GLOBALCOURS_ALLOWEDMETHODS
+          value: "GET,POST,PUT,DELETE,OPTIONS"
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1024Mi"
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8888
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8888
+          initialDelaySeconds: 30
+          periodSeconds: 15

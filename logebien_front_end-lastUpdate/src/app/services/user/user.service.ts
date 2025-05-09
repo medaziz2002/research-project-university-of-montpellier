@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  apiURL: string = "http://localhost:8888/microservice-authentification/api/v1/users";
+  apiURL: string = "http://www.aziz.com/microservice-authentification/api/v1/users";
   constructor(private http:HttpClient) { }
 
 

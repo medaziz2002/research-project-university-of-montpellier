@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ter-logement-service
+  labels:
+    app: ter-logement
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ter-logement
+  template:
+    metadata:
+      labels:
+        app: ter-logement
+    spec:
+      containers:
+      - name: ter-logement
+        image: malikmnsr/bien-service:latest10
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8090
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service.default.svc.cluster.local:3306/TerLogement?createDatabaseIfNotExist=true&serverTimezone=UTC"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: ""
+        - name: SPRING_CONFIG_IMPORT
+          value: "configserver:http://config-server.default.svc.cluster.local:9090"
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        - name: APPLICATION_SECURITY_JWT_SECRET_KEY
+          value: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1024Mi"
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8090  
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8090 
+          initialDelaySeconds: 45
+          periodSeconds: 15
+      volumes:
+      - name: mysql-pv-volume
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

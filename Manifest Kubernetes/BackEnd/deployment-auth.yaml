@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentification-service
+  labels:
+    app: authentification
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authentification
+  template:
+    metadata:
+      labels:
+        app: authentification
+    spec:
+      containers:
+      - name: auth-service
+        image: malikmnsr/auth-service:latest15
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8094
+        env:
+        - name: SPRING_APPLICATION_NAME
+          value: "microservice-authentification"
+        - name: SPRING_CONFIG_IMPORT
+          value: "configserver:http://config-server.default.svc.cluster.local:9090"
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service.default.svc.cluster.local:3306/AuthenTER?createDatabaseIfNotExist=true&serverTimezone=UTC"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: ""
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8094
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8094
+          initialDelaySeconds: 120
+          periodSeconds: 15
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      volumes:
+      - name: mysql-pv-volume
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

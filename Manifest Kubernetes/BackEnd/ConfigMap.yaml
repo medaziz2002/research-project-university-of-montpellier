@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-gateway-config
+data:
+  application.yml: |-
+    eureka:
+      client:
+        service-url:
+          defaultZone: http://eureka-server.default.svc.cluster.local:8761/eureka/
+        fetch-registry: true
+        register-with-eureka: true
+        healthcheck:
+          enabled: true
+
+    spring:
+      application:
+        name: api-gateway
+      cloud:
+        gateway:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOriginPatterns: "*"
+                allowedMethods: "*"
+                allowedHeaders: "*"
+                allowCredentials: true
+                exposedHeaders: "Authorization"
+          routes:
+            - id: microservice-authentification
+              uri: lb://microservice-authentification
+              predicates:
+                - Path=/api/auth/**,/authentification/**
+              filters:
+                - StripPrefix=1
+                - RewritePath=/authentification/(?<path>.*), /$\{path}
+            - id: microservice-logement
+              uri: lb://microservice-logement
+              predicates:
+                - Path=/api/logement/**,/logement/**
+              filters:
+                - StripPrefix=1
+                - RewritePath=/logement/(?<path>.*), /$\{path}
+            - id: payment-microservice
+              uri: lb://payment-microservice
+              predicates:
+                - Path=/payment/**
+              filters:
+                - RewritePath=/payment/(?<path>.*), /$\{path}
+            - id: openapi
+              uri: http://api-gateway:${server.port}
+              predicates:
+                - Path=/v3/api-docs/**,/swagger-ui/**,/swagger-ui.html
+
+    server:
+      port: 8888
+
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: "*"
+          cors:
+            allowed-origins: "*"
+            allowed-methods: "*"
+      endpoint:
+        health:
+          show-details: always
+        gateway:
+          enabled: true

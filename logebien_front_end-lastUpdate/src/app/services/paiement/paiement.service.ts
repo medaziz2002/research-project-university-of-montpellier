@@ -9,7 +9,7 @@ interface PaymentResponse {
   providedIn: 'root'
 })
 export class PaiementService {
-    apiURL: string = "http://localhost:8888/payment-microservice/api/v1/payment"
+    apiURL: string = "http://www.aziz.com/payment/api/v1/payment"
   constructor(private http : HttpClient) { }
 
   

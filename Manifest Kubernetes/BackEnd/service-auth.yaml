@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentification-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8094
+    targetPort: 8094
+    protocol: TCP
+    name: http
+  selector:
+    app: authentification

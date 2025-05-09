@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ReservationService {
 
-  private baseUrl = 'http://localhost:8888/microservice-logement/api/v1/reservations';
+  private baseUrl = 'http://www.aziz.com/microservice-logement/api/v1/reservations';
 
   constructor(private http: HttpClient) {}
 

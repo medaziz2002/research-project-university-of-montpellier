@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  labels:
+    app: payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - name: payment-service
+          image: malikmnsr/payment-service:latest
+          ports:
+            - containerPort: 8093
+          env:
+            - name: PAYPAL_CLIENT_ID
+              value: AXQ-L7tQ8jNI7Cz9tRhBa7OpCSaLjEmmSXkJ_WFz7tieRR_-gSMo9a_w5jaUQWb7cubyclQRg3WglJ4Q
+            - name: PAYPAL_CLIENT_SECRET
+              value: EEWh_km7Skr-L-4nQ1LyuZ7w9ZaPdL2L-Kmlky77p1SeKj5Y3fo9wFvnhA6RaUNasraLcmjsycEkI4bd
+            - name: PAYPAL_MODE
+              value: sandbox
+            - name: APPLICATION_SECURITY_JWT_SECRET_KEY
+              value: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+            - name: APPLICATION_SECURITY_JWT_EXPIRATION
+              value: "86400000"
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka-server.default.svc.cluster.local:8761/eureka
+            - name: EUREKA_CLIENT_REGISTERWITHEUREKA
+              value: "true"
+            - name: EUREKA_CLIENT_FETCHREGISTRY
+              value: "true"
+            - name: SERVER_ERROR_INCLUDE_MESSAGE
+              value: always
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "*"

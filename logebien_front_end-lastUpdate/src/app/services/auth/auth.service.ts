@@ -9,7 +9,7 @@ import { UserService } from '../user/user.service';
 })
 export class AuthService {
 
-  apiURL: string = "http://localhost:8888/microservice-authentification"
+  apiURL: string = "http://www.aziz.com/microservice-authentification"
   token!:any;
   isloggedIn!:boolean;
   loggedUser!:User;
