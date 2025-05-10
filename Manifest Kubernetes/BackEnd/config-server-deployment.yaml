@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+      - name: config-server
+        image: malikmnsr/config-service:latest1
+        ports:
+        - containerPort: 9090
+        env:
+        # Essential Git Config
+        - name: SPRING_PROFILES_ACTIVE
+          value: "git"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
+          value: "https://github.com/malik-mnsr/kubernetesConfig"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_CLONE_ON_START
+          value: "true"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL
+          value: "main"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME
+          value: "malik.mnsr"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD
+          value: "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"    
+        
+        # Critical Timeouts
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_TIMEOUT
+          value: "30"
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_REPO_TIMEOUT
+          value: "30"
+        
+        # Health Check Config
+        - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+          value: "*"
+        - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+          value: "always"
+        
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        
+        # Health Probes
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9090
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9090
+          failureThreshold: 30
+          periodSeconds: 10
