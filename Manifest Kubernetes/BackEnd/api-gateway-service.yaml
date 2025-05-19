@@ -4,6 +4,8 @@ metadata:
   name: api-gateway
   annotations:
     prometheus.io/scrape: "true"  # For monitoring
+    prometheus.io/path:   "/actuator/prometheus"
+    prometheus.io/port:   "8888"
 spec:
   type: NodePort  # Changed from LoadBalancer
   ports:

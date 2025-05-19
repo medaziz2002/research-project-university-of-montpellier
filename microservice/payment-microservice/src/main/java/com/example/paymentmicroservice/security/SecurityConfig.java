@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,6 +25,11 @@ public class SecurityConfig  {
     private final JWTAuthorizationFilter jwtAuthFilter;
 
 
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web ->
+        web.ignoring().requestMatchers("/actuator/prometheus");
+  }
 
 
 
@@ -34,6 +40,9 @@ public class SecurityConfig  {
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(requests -> requests
+                
+                        .requestMatchers("/actuator/prometheus").permitAll()
+
                         .requestMatchers(
                                 "/actuator/**",
                                 "/v2/api-docs",
@@ -64,6 +73,7 @@ public class SecurityConfig  {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
 
 

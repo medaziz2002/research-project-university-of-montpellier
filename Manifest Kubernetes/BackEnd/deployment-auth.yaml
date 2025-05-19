@@ -13,13 +13,18 @@ spec:
     metadata:
       labels:
         app: authentification
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path:   "/actuator/prometheus"
+        prometheus.io/port:   "8094" 
     spec:
       containers:
       - name: auth-service
-        image: malikmnsr/auth-service:latest15
+        image: auth-service #malikmnsr/auth-service:latest15
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8094
+        - containerPort: 8888
         env:
         - name: SPRING_APPLICATION_NAME
           value: "microservice-authentification"

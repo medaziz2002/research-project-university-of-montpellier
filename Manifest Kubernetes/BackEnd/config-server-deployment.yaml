@@ -11,10 +11,15 @@ spec:
     metadata:
       labels:
         app: config-server
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path:   "/actuator/prometheus"
+        prometheus.io/port:   "9090" 
     spec:
       containers:
       - name: config-server
-        image: malikmnsr/config-service:latest1
+        image: config-service #malikmnsr/config-service:latest1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9090
         env:

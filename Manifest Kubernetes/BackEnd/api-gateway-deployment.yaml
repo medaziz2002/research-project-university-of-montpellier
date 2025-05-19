@@ -17,10 +17,14 @@ spec:
     metadata:
       labels:
         app: api-gateway
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path:   "/actuator/prometheus"
+        prometheus.io/port:   "8888" 
     spec:
       containers:
       - name: api-gateway
-        image: malikmnsr/gateway-service:latest1
+        image: gateway-service #malikmnsr/gateway-service:latest1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8888

@@ -1,0 +1,26 @@
+prometheusOperator:
+  enabled: true
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector:
+      matchNames: ["default"]
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+    retention: 7d
+
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: prom-operator
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+

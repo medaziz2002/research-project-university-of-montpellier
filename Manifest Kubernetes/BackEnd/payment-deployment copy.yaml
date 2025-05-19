@@ -13,10 +13,15 @@ spec:
     metadata:
       labels:
         app: payment-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path:   "/actuator/prometheus"
+        prometheus.io/port:   "8093" 
     spec:
       containers:
         - name: payment-service
-          image: malikmnsr/payment-service:latest
+          image: payment-service #malikmnsr/payment-service:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8093
           env:

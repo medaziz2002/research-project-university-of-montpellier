@@ -1,0 +1,92 @@
+global:
+  scrape_interval:     10s
+  scrape_timeout:      10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  # ——————————————————————————————————————
+  # 1) Prometheus lui-même (auto-monitoring)
+  # ——————————————————————————————————————
+  - job_name: 'prometheus'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 'prometheus-server.monitoring.svc.cluster.local:80'
+
+  # ——————————————————————————————————————
+  # 2) loge-bien-service
+  # ——————————————————————————————————————
+  - job_name: 'loge-bien-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'loge-bien-service.default.svc.cluster.local:80'
+        labels:
+          application: loge-bien
+
+  # ——————————————————————————————————————
+  # 3) authentification-service
+  # ——————————————————————————————————————
+  - job_name: 'authentification-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'authentification-service.default.svc.cluster.local:8094'
+        labels:
+          application: authentification
+
+  # ——————————————————————————————————————
+  # 4) api-gateway
+  # ——————————————————————————————————————
+  - job_name: 'api-gateway'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'api-gateway.default.svc.cluster.local:80'
+        labels:
+          application: api-gateway
+
+  # ——————————————————————————————————————
+  # 5) eureka-server
+  # ——————————————————————————————————————
+  - job_name: 'eureka-server'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'eureka-server.default.svc.cluster.local:8761'
+        labels:
+          application: eureka-server
+
+  # ——————————————————————————————————————
+  # 6) payment-service
+  # ——————————————————————————————————————
+  - job_name: 'payment-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'payment-service.default.svc.cluster.local:8093'
+        labels:
+          application: payment-service
+
+  # ——————————————————————————————————————
+  # 7) ter-logement-service
+  # ——————————————————————————————————————
+  - job_name: 'ter-logement-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'ter-logement-service.default.svc.cluster.local:8090'
+        labels:
+          application: ter-logement-service
+
+  # ——————————————————————————————————————
+  # 8) config-server (si vous souhaitez le scrapper aussi)
+  # ——————————————————————————————————————
+  - job_name: 'config-server'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'config-server.default.svc.cluster.local:9090'
+        labels:
+          application: config-server
+

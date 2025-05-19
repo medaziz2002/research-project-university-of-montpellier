@@ -17,20 +17,29 @@ spec:
     metadata:
       labels:
         app: ter-logement
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path:   "/actuator/prometheus"
+        prometheus.io/port:   "8090" 
     spec:
       containers:
       - name: ter-logement
-        image: malikmnsr/bien-service:latest10
+        image: bien-service #malikmnsr/bien-service:latest10
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8090
         env:
+        - name: SERVER_PORT
+          value: "8090"
+        - name: SPRING_APPLICATION_NAME
+          value: "microservice-logement"
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mysql://mysql-service.default.svc.cluster.local:3306/TerLogement?createDatabaseIfNotExist=true&serverTimezone=UTC"
         - name: SPRING_DATASOURCE_USERNAME
           value: "root"
         - name: SPRING_DATASOURCE_PASSWORD
           value: ""
+          
         - name: SPRING_CONFIG_IMPORT
           value: "configserver:http://config-server.default.svc.cluster.local:9090"
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
@@ -56,7 +65,7 @@ spec:
             port: 8090 
           initialDelaySeconds: 45
           periodSeconds: 15
-      volumes:
-      - name: mysql-pv-volume
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+      # volumes:
+      # - name: mysql-pv-volume
+      #   persistentVolumeClaim:
+      #     claimName: mysql-pv-claim
