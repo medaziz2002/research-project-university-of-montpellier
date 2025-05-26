@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: gateway-service #malikmnsr/gateway-service:latest1
+        image: xenender/gateway-service:latest  #gateway-service #malikmnsr/gateway-service:latest1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8888

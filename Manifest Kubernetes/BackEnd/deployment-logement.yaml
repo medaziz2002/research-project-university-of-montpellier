@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: ter-logement
-        image: bien-service #malikmnsr/bien-service:latest10
+        image: xenender/bien-service:latest #bien-service #malikmnsr/bien-service:latest10
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8090

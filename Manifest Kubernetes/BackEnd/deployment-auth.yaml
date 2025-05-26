@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: auth-service
-        image: auth-service #malikmnsr/auth-service:latest15
+        image: xenender/auth-service:latest #auth-service #malikmnsr/auth-service:latest15
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8094

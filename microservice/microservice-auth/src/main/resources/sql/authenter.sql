@@ -2,7 +2,7 @@
 
 
 INSERT INTO `motdepasses` (`id`, `date_creation`, `valeur_motdepasse`, `user_id`) VALUES
-	(1, '2025-04-14 15:19:41.796000', '$2a$10$Mkv5mMXEjtrQUFPC5XtMyudn7Q2kyVgRXbvA6Z80zPV5KhYiCbCwm', NULL),
+
 	(102, '2025-04-14 15:32:18.818000', '$2a$10$K8InT9avbEaj.szjEYqPYe1pY3SC0j8lza0F/kKatsQeQ7HoDeU5O', NULL),
 	(103, '2025-04-14 15:33:15.462000', '$2a$10$uF31UbETcoXKf0Ipao5AR.W6WMuyHwWz3DZVtK30EuTBtBo5yIWLG', NULL),
 	(104, '2025-04-14 15:34:00.965000', '$2a$10$Li5jYIN9Wp1CSJpbc3.uuecLLYJPNg1xHp9jhHwJ8DzC/3hjegGHK', NULL),
@@ -11,7 +11,7 @@ INSERT INTO `motdepasses` (`id`, `date_creation`, `valeur_motdepasse`, `user_id`
 
 
 INSERT INTO `users` (`id`, `date_naissance`, `email`, `etat`, `locataire_id`, `nom`, `prenom`, `proprietaire_id`, `role`, `token_to_reset_password`, `image_id`, `motdepasse_id`) VALUES
-	(2, '2025-04-14 15:19:41.847000', 'admin@gmail.com', 1, NULL, 'Admin', 'Super', NULL, 'SUPERADMIN', NULL, NULL, 1),
+
 	(152, '2025-04-15 00:00:00.000000', 'ahmed@gmail.com', 1, NULL, 'souissi', 'ahmed', _binary 0x47f8d450afbc46e398b338aefd8cef95, 'proprietaire', NULL, NULL, 102),
 	(153, '2025-04-02 00:00:00.000000', 'nadine@gmail.com', 1, NULL, 'toumi', 'nadine', _binary 0xafad2f901816449e8aa1d0f6886bb54e, 'proprietaire', NULL, NULL, 103),
 	(154, '2025-04-17 00:00:00.000000', 'maher@gmail.com', 1, NULL, 'triki', 'maher', _binary 0xef0861d6bacc4fa7a5a8ea2977b124b4, 'proprietaire', NULL, NULL, 104),

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: config-server
-        image: config-service #malikmnsr/config-service:latest1
+        image: xenender/config-service:latest #config-service #malikmnsr/config-service:latest1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9090

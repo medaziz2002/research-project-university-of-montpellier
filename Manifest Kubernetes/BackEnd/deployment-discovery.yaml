@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: eureka-server
-        image: discovery-service #malikmnsr/discovery-service
+        image: xenender/discovery-service:latest #discovery-service #malikmnsr/discovery-service
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8761
