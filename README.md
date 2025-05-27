@@ -68,3 +68,12 @@ cd "Manifest Kubernetes"
 # Appliquer tous les fichiers YAML dans les dossiers /BackEnd, /FrontEnd, /Nginx Config Files
 kubectl apply -f .
 ```
+### 🔑 6. Accès à l’application
+
+    Rendez-vous sur : www.behome.com
+
+    Compte administrateur :
+
+        Email : admin@gmail.com
+
+        Mot de passe : 1234
