@@ -32,5 +32,6 @@ Ce projet a été réalisé dans le cadre du projet de fin d'année universitair
    cd research-project-university-of-montpellier/
 2. Appliquer les manifestes Kubernetes :
   ```bash
-  cd /Manifest Kubernetes #Vous devez faire apply pour tous les fichier .yaml dans les 3 dossier /BackEnd, /FrontEnd, /Nginx Config Files
+  cd /Manifest Kubernetes
+#Vous devez faire apply pour tous les fichier .yaml dans les 3 dossier /BackEnd, /FrontEnd, /Nginx Config Files
   kubectl apply -f .
