@@ -19,9 +19,7 @@ Ce projet a été réalisé dans le cadre du projet de fin d'année universitair
 
 ## 📦 Structure du projet
 
-/Manifest Kubernetes/ # Fichiers YAML de déploiement Kubernetes
-/logebien_front/ # Application Angular
-/microservice/ # Code des microservices Spring Boot
+<pre> ``` /Manifest Kubernetes/ -> Fichiers YAML de déploiement Kubernetes /logebien_front/ -> Application Angular /microservice/ -> Code des microservices Spring Boot ``` </pre>
 
 ## 📋 Prérequis
 
