@@ -28,7 +28,7 @@ Ce projet a été réalisé dans le cadre du projet de fin d'année universitair
 
 1. Cloner le dépôt :
    ```bash
-   git clone [https://github.com/ton-utilisateur/ter-behome.git](https://github.com/medaziz2002/research-project-university-of-montpellier)
+   git clone https://github.com/medaziz2002/research-project-university-of-montpellier
    cd research-project-university-of-montpellier/
 2. Appliquer les manifestes Kubernetes :
   ```bash
