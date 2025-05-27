@@ -52,18 +52,19 @@ L'architecture de **Ter Behome** repose sur une approche cloud-native avec Sprin
 
 ```bash
 minikube start --driver=docker
-
+```
 ### 🌐 3. Activer l’Ingress Controller
-
+```bash
 minikube addons enable ingress
-
+```
 ### 📂 4. Cloner le dépôt
-
+```bash
 git clone https://github.com/medaziz2002/research-project-university-of-montpellier
 cd research-project-university-of-montpellier/
-
+```
 ### 📦 5. Appliquer les manifestes Kubernetes
-
+```bash
 cd "Manifest Kubernetes"
 # Appliquer tous les fichiers YAML dans les dossiers /BackEnd, /FrontEnd, /Nginx Config Files
 kubectl apply -f .
+```
