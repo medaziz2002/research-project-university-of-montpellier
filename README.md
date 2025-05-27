@@ -9,7 +9,11 @@
 ## 🏗️ Description
 
 Ce projet a été réalisé dans le cadre du projet de fin d'année universitaire 2024/2025. Il propose une solution complète pour la mise en relation entre propriétaires et locataires, avec gestion des annonces, réservations, et interactions entre utilisateurs.
-
+Membre de groupe BeHome: 
+  - **BELHAJ HSSINE Mohamed Aziz** – mohamed-aziz.belhaj-hssine@etu.umontpellier.fr  
+  - **DOUHANE Nadim** – nadim.douhane@etu.umontpellier.fr  
+  - **MANSOUR Malik** – malik.mansour@etu.umontpellier.fr  
+  - **PECQUEUX Valentin** **(CMI)** – valentin.pecqueux@etu.umontpellier.fr  
 ## 🚀 Technologies utilisées
 
 - ⚙️ **Backend** : Architecture **microservices** avec **Spring Boot**
