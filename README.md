@@ -26,7 +26,6 @@ L'architecture de **Ter Behome** repose sur une approche cloud-native avec Sprin
 </p>
 
 ## 📦 Structure du projet
-
 <pre> 
    /Manifest Kubernetes/ -> Fichiers YAML de déploiement Kubernetes 
    /logebien_front/ -> Application Angular 
