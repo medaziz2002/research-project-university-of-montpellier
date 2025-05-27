@@ -14,9 +14,9 @@ Ce projet a été réalisé dans le cadre du projet de fin d'année universitair
 
 ## 📦 Structure du projet
 
-/backend/ # Code des microservices Spring Boot
-/frontend/ # Application Angular
-/manifest/ # Fichiers YAML de déploiement Kubernetes
+/Manifest Kubernetes/ # Fichiers YAML de déploiement Kubernetes
+/logebien_front/ # Application Angular
+/microservice/ # Code des microservices Spring Boot
 
 ## 📋 Prérequis
 
@@ -32,5 +32,5 @@ Ce projet a été réalisé dans le cadre du projet de fin d'année universitair
    cd research-project-university-of-montpellier/
 2. Appliquer les manifestes Kubernetes :
   ```bash
-  cd manifest/
+  cd /Manifest Kubernetes #Vous devez faire apply pour tous les fichier .yaml dans les 3 dossier /BackEnd, /FrontEnd, /Nginx Config Files
   kubectl apply -f .
