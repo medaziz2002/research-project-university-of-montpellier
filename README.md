@@ -36,15 +36,14 @@ L'architecture de **Ter Behome** repose sur une approche cloud-native avec Sprin
 - `kubectl` installé et configuré
 - Cluster Kubernetes opérationnel (Minikube)
 - Ingress Nginx installé sur le cluster
-
 ## 🛠️ Lancement du projet
 
-1. Cloner le dépôt :
-   ```bash
-   git clone https://github.com/medaziz2002/research-project-university-of-montpellier
-   cd research-project-university-of-montpellier/
-2. Appliquer les manifestes Kubernetes :
+### 🔧 1. Installation et configuration de Minikube (si ce n’est pas déjà fait)
+
+- Installer Minikube : [Guide officiel](https://minikube.sigs.k8s.io/docs/start/)
+- Démarrer le cluster :
   ```bash
-  cd /Manifest Kubernetes
-#Vous devez faire apply pour tous les fichier .yaml dans les 3 dossier /BackEnd, /FrontEnd, /Nginx Config Files
-  kubectl apply -f .
+  minikube start --driver=docker
+- Activer l’Ingress Controller :
+  ``bash
+  minikube addons enable ingress
