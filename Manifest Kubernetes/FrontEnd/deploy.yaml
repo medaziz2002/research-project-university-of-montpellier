@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: loge-bien-app
-        image: malikmnsr/frontend1:latest
+        image: malikmnsr/frontend3:latest
         ports:
         - containerPort: 80
         livenessProbe: 
