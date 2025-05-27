@@ -1,5 +1,8 @@
 # Ter Behome 
-![BeHome Logo](logo_BeHome.jpg)
+
+<p align="center">
+  <img src="logo_BeHome.jpg" alt="BeHome Logo" width="200"/>
+</p>
 
 **Ter Behome** est une plateforme de réservation de biens immobiliers, où chaque **propriétaire** peut publier son logement et chaque **locataire** peut effectuer une réservation en toute simplicité.
 
